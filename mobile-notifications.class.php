@@ -94,7 +94,7 @@ class mobileNotifications {
 	}	
 	
 	/**
-	* returns send ios notifications 
+	* sends ios notifications 
 	*
 	* @param array list of valid ios tokens
 	* @param string notification text content
@@ -125,7 +125,7 @@ class mobileNotifications {
 	}
 
 	/**
-	* returns send android notifications 
+	* sends android notifications 
 	*
 	* @param array list of valid android tokens
 	* @param string notification text content
@@ -164,7 +164,7 @@ class mobileNotifications {
 	}
 	
 	/**
-	* returns send blackberry notifications 
+	* sends blackberry notifications 
 	*
 	* @param array list of valid blackberry tokens
 	* @param string notification text content
@@ -220,5 +220,25 @@ class mobileNotifications {
 		var_dump($result); 
 	}	
 	
+	/**
+	* send device independant notifications 
+	*
+	* @param string semi-colon(;) separated list of tokens
+	* @param string notification text content
+	* @return 
+	*/
+	public function send($device_tokens, $sNotif){	
+		// blackberry
+		$aBlackberryTokens = $this->getBlackberryTokens($device_tokens);
+		$this->sendBlackberry($aBlackberryTokens, $sNotif);
+		
+		// ios
+		$aIosTokens = $this->getIosTokens($device_tokens);
+		$this->sendIos($aIosTokens, $sNotif);
+		
+		// android
+		$aAndroidTokens = $this->getAndroidTokens($device_tokens);
+		$this->sendAndroid($aAndroidTokens, $sNotif);
+	}
 }
 ?>
